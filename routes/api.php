@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DevsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
@@ -17,6 +18,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 use Laravel\Fortify\Http\Controllers\RecoveryCodeController;
+use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticationController;
 use Laravel\Fortify\Http\Controllers\TwoFactorQrCodeController;
 use Laravel\Fortify\Http\Controllers\TwoFactorSecretKeyController;
@@ -34,6 +36,10 @@ use Laravel\Fortify\Http\Controllers\TwoFactorSecretKeyController;
 |
 */
 
+Route::post('/two-factor-challenge', [TwoFactorAuthenticatedSessionController::class, 'store'])
+    ->middleware(array_filter([
+        'guest:' . config('fortify.guard')
+    ]));
 if (Features::enabled(Features::resetPasswords())) {
 
     Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
@@ -176,9 +182,8 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 });
-
-
-
+Route::get("/developers/projects/{id}", [DevsController::class, "project"]);
+Route::apiResource("/developers", DevsController::class);
 
 Route::get('/', function () {
     return;

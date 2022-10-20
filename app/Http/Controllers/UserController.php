@@ -60,7 +60,7 @@ class UserController extends Controller
         // $user = auth()->user();
         // $user = $email->user();
         return new UserResource($user);
-        //     return response()->json([
+        //     return response()->json([n
         //         'data' => $user
         //     ], 200);
     }
