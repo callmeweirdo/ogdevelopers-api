@@ -13,7 +13,7 @@ class StoreHomeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreHomeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'home_welcome' => ['required', 'min:10', 'max:40'],
+            'home_title' => ['required', 'min:10', 'max:50'],
+            'home_description' => ['required', 'min:80', 'max:150'],
+            'about_title' => ['required', 'min:10', 'max:50'],
+            'about_description' => ['required', 'min:80', 'max:300']
         ];
     }
 }

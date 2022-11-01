@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHomeRequest;
 use App\Http\Requests\UpdateHomeRequest;
 use App\Http\Resources\HomeResource;
 use App\Models\Home;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -18,6 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         $homeInfo = Home::where('user_id', Auth::user()->id)->get()->first();
+        // $homeInfo = User::where('id', Auth::user()->id)->get()->first();
         return new HomeResource($homeInfo);
     }
 
@@ -39,7 +41,18 @@ class HomeController extends Controller
      */
     public function store(StoreHomeRequest $request)
     {
-        //
+        $request->validated($request->all());
+        // $home = Home::create($request->all());
+        $home = Home::create([
+            'user_id' => Auth::user()->id,
+            'home_welcome' => $request->home_title,
+            'home_title' => $request->home_title,
+            'home_description' => $request->home_description,
+            'about_title' => $request->about_title,
+            'about_description' => $request->about_description,
+        ]);
+
+        return new HomeResource($home);
     }
 
     /**
@@ -53,6 +66,8 @@ class HomeController extends Controller
         // dd($home);
         // $homeInfo = Home::where('user_id', Auth::user()->id)->get()->first();
         // return new HomeResource($homeInfo);
+
+
     }
 
     /**

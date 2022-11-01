@@ -22,7 +22,9 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'phone' => $this->phone,
             'photo_url' => $this->photo_url,
-            'has2fa' => $this->two_factor_secret ? true : false
+            'has2fa' => $this->two_factor_secret ? true : false,
+            'verified' => $this->email_verified_at ? true : false
+
         ];
     }
 }

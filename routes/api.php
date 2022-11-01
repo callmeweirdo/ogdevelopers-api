@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DevsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
@@ -22,8 +23,6 @@ use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticationController;
 use Laravel\Fortify\Http\Controllers\TwoFactorQrCodeController;
 use Laravel\Fortify\Http\Controllers\TwoFactorSecretKeyController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +64,7 @@ if (Features::enabled(Features::resetPasswords())) {
         ->middleware(['guest:' . config('fortify.guard')])
         ->name('password.update');
 }
+
 Route::middleware('auth:sanctum')->group(function () {
     if (Features::enabled(Features::updateProfileInformation())) {
         Route::put('/user/profile-information', [ProfileInformationController::class, 'update'])
@@ -89,22 +89,26 @@ Route::middleware('auth:sanctum')->group(function () {
     //             ->middleware(['guest:' . config('fortify.guard')]);
     //     }
 
-    //     // Email Verification...
-    //     if (Features::enabled(Features::emailVerification())) {
-    //         if ($enableViews) {
-    //             Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
-    //                 ->middleware([config('fortify.auth_middleware', 'auth') . ':' . config('fortify.guard')])
-    //                 ->name('verification.notice');
-    //         }
+    // Email Verification...
+    if (Features::enabled(Features::emailVerification())) {
+        // if ($enableViews) {
+        //     Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
+        //         ->middleware([config('fortify.auth_middleware', 'auth') . ':' . config('fortify.guard')])
+        //         ->name('verification.notice');
+        // }
 
-    //         Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-    //             ->middleware([config('fortify.auth_middleware', 'auth') . ':' . config('fortify.guard'), 'signed', 'throttle:' . $verificationLimiter])
-    //             ->name('verification.verify');
+        // Route::post('/email/verification-notification', [VerifyEmailController::class, 'resend'])
+        //     ->name('verification.send');
 
-    //         Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    //         ->middleware([config('fortify.auth_middleware', 'auth') . ':' . config('fortify.guard'), 'throttle:' . $verificationLimiter])
-    //         ->name('verification.send');
-    //     }
+        // Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware(['signed'])
+        //     ->name('verification.verify');
+
+        // Route::post('/email/verification-notification', [VerifyEmailController::class, 'resend'])
+        //     ->name('verification.send');
+
+        // Route::post('/email/verification-notification', [VerifyEmailController::class, 'resend'])
+        //     ->name('verification.send');
+    }
 
     // Profile Information...
     if (Features::enabled(Features::updateProfileInformation())) {
@@ -182,7 +186,12 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 });
+
+
+// Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware(['signed'])
+//     ->name('verification.verify');
 Route::get("/developers/projects/{id}", [DevsController::class, "project"]);
+Route::post("/developers/contact/", [DevsController::class, "contact"]);
 Route::apiResource("/developers", DevsController::class);
 
 Route::get('/', function () {
