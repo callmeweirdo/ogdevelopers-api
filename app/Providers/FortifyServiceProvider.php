@@ -61,6 +61,8 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 
+
+
     // protected function registerResponsBindings()
     // {
     //     ResetPassword::createUrlUsing(

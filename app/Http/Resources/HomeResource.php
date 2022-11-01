@@ -15,13 +15,23 @@ class HomeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
-            'user_id' => $this->user->id,
-            'home_welcome' => $this->home_welcome,
-            'home_title' => $this->home_title,
-            'home_description' => $this->home_description,
-            'about_title' => $this->about_title,
-            'about_description' => $this->about_description
+            // 'id' => $this->when(is_null($this->id) || empty($this->id), function () {
+            //     return null;
+            // }),
+            // 'user_id' => $this->when(
+            //     is_null($this->user_id),
+            //     function () {
+            //         return null;
+            //     }
+            // ),
+            // 'id' =>  !is_null($this->id) || !empty($this->id) ? $this->id : null,
+            'id' =>   empty($this->id) ? null : $this->id,
+            'user_id' => empty($this->user_id) ? null : $this->user_id,
+            'home_welcome' => empty($this->home_welcome) ? null : $this->home_welcome,
+            'home_title' => empty($this->home_title) ? null : $this->home_title,
+            'home_description' => empty($this->home_description) ? null : $this->home_description,
+            'about_title' => empty($this->about_title) ? null : $this->about_title,
+            'about_description' => empty($this->about_description) ? null : $this->about_description
         ];
     }
 }
