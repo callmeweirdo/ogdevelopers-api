@@ -1,0 +1,47 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-18381190492-699d4d2417d04fc9": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "livewire101",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "livewire101",
+				"url": "jdbc:mysql://localhost:3306/livewire101",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-183811dd068-1a194615cba0d151": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "ogdevelopers",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "ogdevelopers",
+				"url": "jdbc:mysql://localhost:3306/ogdevelopers",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

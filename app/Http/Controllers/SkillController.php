@@ -78,12 +78,12 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreSkillRequest $request, $id)
+    public function update(StoreSkillRequest $request, $skill)
     {
         $user_id = Auth::user()->id;
 
         $request->validated($request->all());
-        $skill = Skill::where(["id" => $id, "user_id" => $user_id])->update([
+        $skill = Skill::where(["id" => $skill, "user_id" => $user_id])->update([
             'skill' => $request->skill,
             'type' => $request->type,
             'experience' => $request->experience,
