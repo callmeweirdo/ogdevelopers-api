@@ -41,7 +41,7 @@ class EmailVerificationNotification extends VerifyEmail
      */
     public function toMail($notifiable)
     {
-        $prefix = 'http://localhost:3000/verify-email/?url=';
+        $prefix = 'http://localhost:3000/verify-email/?';
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)

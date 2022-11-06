@@ -24,11 +24,11 @@ class UpdateHomeRequest extends FormRequest
     public function rules()
     {
         return [
-            'home_welcome' => ['required', 'min:10', 'max:40'],
-            'home_title' => ['required', 'min:10', 'max:50'],
-            'home_description' => ['required', 'min:80', 'max:200'],
-            'about_title' => ['required', 'min:10', 'max:50'],
-            'about_description' => ['required', 'min:80', 'max:300']
+            'home_welcome' => ['required'],
+            'home_title' => ['required'],
+            'home_description' => ['required'],
+            'about_title' => ['required'],
+            'about_description' => ['required']
 
         ];
     }
